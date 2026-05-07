@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOTO RAGE | Booking Confirmation</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <style>
+        :root {
+            --primary-red: #e74c3c;
+            --dark-red: #c0392b;
+            --pure-black: #1a1a1a;
+            --dark-gray: #121212;
+            --white: #ffffff;
+            --glass-bg: rgba(26, 26, 26, 0.9); /* خلفية زجاجية داكنة */
+            --border: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* إضافة صورة الدراجة في الخلفية */
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("{% static 'img/img7.png' %}") no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .form-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px); /* تأثير الزجاج الضبابي */
+            width: 100%;
+            max-width: 650px;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* خط أحمر علوي للزينة */
+        .form-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-red);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header h2 span {
+            color: var(--primary-red);
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #bbb;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 10px;
+            color: var(--white);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--white);
+            transition: 0.3s;
+        }
+
+        /* تخصيص لون الأيقونات في حقول التاريخ والوقت لتظهر باللون الأبيض */
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-red);
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.2);
+        }
+
+        select.form-control option {
+            background: var(--pure-black);
+            color: var(--white);
+        }
+
+        .name-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .name-row .form-group {
+            flex: 1;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 15px;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-submit:hover {
+            background: var(--dark-red);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 580px) {
+            .name-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .form-card {
+                padding: 30px 20px;
+            }
+        }
+
+        .message {
+            color: red;
+        text-align: center;
+        margin-top: 20px;
+        font-weight: 600;
+        background: rgba(231, 76, 60, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+        }
+
+        .hidden {
+    display: none;
+}
+
+
+     .social-links {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .social-links a {
+        color: white;
+        font-size: 1.5rem;
+        transition: 0.3s;
+        display: inline-block;
+    }
+
+    .social-links a:hover { transform: translateY(-5px); }
+    .fa-facebook:hover { color: #1877F2; }
+    .fa-instagram:hover { color: #E4405F; }
+    .fa-whatsapp:hover { color: #25D366; }
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="form-card">
+
+    <header>
+        <h2>Confirm <span>Your Ride</span></h2>
+        <p>Gear up for the ultimate adventure in Tangier</p>
+    </header>
+    <div class="message">{{ message }}</div>
+    <form action="{% url 'page2' %}" method="POST">
+        {% csrf_token %}
+
+        <!-- Trip -->
+        <div class="form-group">
+            <label>Select Destination</label>
+            <select name="trip_destination" class="form-control" required>
+                <option value="" disabled selected>Choose where to ride...</option>
+                <option value="diplomatic_forest">Diplomatic Forest - Farah Hotel (150 MAD)</option>
+                <option value="asilah_coast">Tangier to Asilah Coast (250 MAD)</option>
+                <option value="belyounech_mountain">Tangier to Belyounech (300 MAD)</option>
+            </select>
+        </div>
+
+        <!-- Names -->
+        <div class="name-row">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="first_name" class="form-control" placeholder="John" required>
+            </div>
+
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="last_name" class="form-control" placeholder="Doe" required>
+            </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" class="form-control" placeholder="06XXXXXXXX" required>
+        </div>
+
+        <!-- Date & Time Row -->
+        <div class="name-row">
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Time</label>
+                <input type="time" name="time" class="form-control" required>
+            </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group">
+            <label>Special Requests / Notes</label>
+            <textarea name="notes" class="form-control" rows="3" placeholder="Any specific requirements?"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Confirm Booking</button>
+    </form>
+
+      <br>
+    <footer>
+    <p>&copy; 2026 MOTO RAGE. Built by AE Digital in Tangier.</p>
+    <div class="social-links">
+        <a href="https://www.instagram.com/tour.with.drak?igsh=MWdvcW5odW9neTBqMw==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/212699441179" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+</footer>
+
+     
+</div>
+
+</body>
+</html>

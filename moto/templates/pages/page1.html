@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOTO RAGE | Red Line Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    
+
+
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+
+
+    <style>
+        :root {
+            --primary-red: #e74c3c; 
+            --dark-red: #c0392b;
+            --dark-accent: #1a1a1a;  
+            --white: #ffffff;
+            --gray: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--dark-accent);
+            line-height: 1.6;
+        }
+
+        .arabic { font-family: 'Cairo', sans-serif; direction: rtl; }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--dark-accent); }
+        .logo span { color: var(--primary-red); }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-accent);
+            margin-left: 30px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary-red); }
+
+        .hero {
+            height: 85vh;
+            background: linear-gradient(135deg, #fdf2f0 0%, var(--white) 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-text { flex: 1; z-index: 2; }
+        .hero-text h1 { font-size: 4rem; line-height: 1.2; margin-bottom: 20px; color: var(--dark-accent); }
+        .hero-text span { color: var(--primary-red); }
+
+        .hero-image {
+            flex: 1;
+            height: 500px;
+            padding: 5px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, var(--primary-red), white, var(--dark-red));
+        }
+
+        .hero-image::before{
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: url("{% static 'img/img7.png' %}") no-repeat center;
+            background-size: cover;
+            border-radius: 20px;
+        }
+
+        .features {
+            padding: 100px 8%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .feat-card {
+            padding: 40px;
+            background: var(--gray);
+            border-radius: 20px;
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .feat-card:hover { 
+            background: var(--dark-accent); 
+            color: white; 
+            transform: translateY(-10px);
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .tours-section { padding: 100px 8%; background: #fffcfc; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; margin-bottom: 10px; }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .tour-card {
+            background: var(--white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tour-card:hover { transform: scale(1.03); box-shadow: 0 20px 40px rgba(231, 76, 60, 0.2); }
+
+        .card-img {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content { padding: 30px; }
+        .price { color: var(--primary-red); font-weight: 800; font-size: 1.4rem; display: block; margin-bottom: 10px; }
+
+        .card-content h3 { color: var(--dark-accent); margin-bottom: 15px; }
+        .card-content p { color: #666; margin-bottom: 15px; }
+
+        .btn-red {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .btn-red:hover { 
+            background: var(--dark-accent); 
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3); 
+        }
+
+        footer { padding: 60px 8%; background: var(--dark-accent); color: white; text-align: center; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+
+
+       .social-links {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .social-links a {
+        color: white;
+        font-size: 1.5rem;
+        transition: 0.3s;
+        display: inline-block;
+    }
+
+    .social-links a:hover { transform: translateY(-5px); }
+    .fa-facebook:hover { color: #1877F2; }
+    .fa-instagram:hover { color: #E4405F; }
+    .fa-whatsapp:hover { color: #25D366; }
+
+
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"> TOUR WITH<span>DRAK</span></div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#tours">Destinations</a>
+            <a href="{% url 'page2' %}" style="background: var(--primary-red); color: white; padding: 10px 20px; border-radius: 5px;">Reservation</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-text">
+            <h1 class="reveal">Ride With <br><span>Pure Power</span></h1>
+            <p class="reveal">Explore Tangier's best trails with the most powerful bikes in the city.</p>
+            <a href="#tours" class="btn-red reveal">Start Journey</a>
+        </div>
+        <div class="hero-image"></div>
+    </header>
+
+    <section class="features">
+        <div class="feat-card reveal">
+            <h3>Safe Gear</h3>
+            <p>Premium helmets and protection for every rider.</p>
+        </div>
+        <div class="feat-card reveal">
+            <h3>Expert Guides</h3>
+            <p>Locals who know every corner of the northern coast.</p>
+        </div>
+        <div class="feat-card reveal">
+            <h3>Easy Booking</h3>
+            <p>Your bike is ready in just 5 minutes.</p>
+        </div>
+    </section>
+    
+    <section id="tours" class="tours-section">
+        <div class="section-title reveal">
+            <h2 class="arabic">وجهاتنا المميزة</h2>
+            <p>Choose your adrenaline shot</p>
+        </div>
+
+        <div class="container">
+            {% for i in x %}
+            <div class="tour-card reveal">
+                <div class="card-img">
+                    <img src="{{ i.imag.url }}" alt="{{ i.title }}">
+                </div>
+                <div class="card-content">
+                    <span class="price">{{ i.Price }} MAD</span>
+                    <h3 class="arabic">{{ i.title }}</h3>
+                    <p class="arabic">{{ i.description }}</p>
+                    <a href="{% url 'page2' %}" class="btn-red">Book Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+<footer>
+    <p>&copy; 2026 MOTO RAGE. Built by AE Digital in Tangier.</p>
+    <div class="social-links">
+        <a href="https://instagram.com/yourprofile" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/2126XXXXXXXX" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+</footer>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.onload = reveal;
+    </script>
+</body>
+</html>

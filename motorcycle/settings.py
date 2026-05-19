@@ -100,15 +100,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-# تعديل ناضي: تم تغيير المسار ليتوافق مع الإعدادات المباشرة لـ Vercel
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# المجلد لي غيتجمعو فيه الملفات ف السيرفر
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# المجلد المحتفظ بالملفات الأصلية عندك ف الـ Local
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static_local') if os.path.exists(os.path.join(BASE_DIR, 'static_local')) else os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static')
 ]
 
-# استخدام الـ Storage المرن لمنع فشل الـ Build
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# إعداد مرن وآمن لـ WhiteNoise يتوافق مع Vercel
+STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
 
 # Media files
 MEDIA_URL = '/media/'

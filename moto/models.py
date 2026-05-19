@@ -27,9 +27,13 @@ class DateTime(models.Model):
 
 class User(models.Model):
     TRIP_CHOICES = [
-        ('diplomatic_forest', 'diplomatic_forest'),
-        ('asilah_coast', 'asilah_coast'),
-        ('belyounech_mountain', 'belyounech_mountain'),
+        ('أشقار', 'أشقار'),
+        ('الغابة الديبلوماسية', 'الغابة الديبلوماسية'),
+        ('أصيلة', 'أصيلة'),
+        ('فنيدق', 'فنيدق'),
+        ('العرائش', 'العرائش'),
+        ('بليونيش', 'بليونيش'),
+        ('بليونيش', 'بليونيش'),
     ]
 
     select_your_trip = models.CharField(

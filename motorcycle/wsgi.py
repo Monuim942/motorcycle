@@ -14,3 +14,5 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'motorcycle.settings')
 
 application = get_wsgi_application()
+# ضيف هاد السطر ضروري في آخر ملف wsgi.py
+app = application

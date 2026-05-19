@@ -4,288 +4,940 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOTO RAGE | Red Line Adventure</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
     
+    <!-- أهم وسوم SEO الأساسية -->
+    <title>Tours with Haitam | Luxury Motorcycle Tours Tangier & Rif Mountains</title>
+    <meta name="description" content="Experience the ultimate adventure with Tours with Haitam. Rent luxury motorcycles and explore stunning routes between the Mediterranean Sea and the Rif Mountains in Tangier, Morocco.">
+    <meta name="keywords" content="tours with haitam, motorcycle rental tangier, moto rage, morocco motorcycle tours, rif mountains adventure, rent bike tangier, طنجة دراجات نارية, كراء الدراجات النارية طنجة">
+    <meta name="author" content="AE Digital">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
 
+    <!-- وسوم Open Graph لـ Facebook, WhatsApp & Instagram -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tours with Haitam | Luxury Motorcycle Tours in Tangier">
+    <meta property="og:description" content="Experience the adventure of a lifetime between the azure Mediterranean Sea and the enchanting Rif Mountains with our luxury fleet.">
+    <meta property="og:image" content="{% static 'img/image.jpg' %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:site_name" content="Tours with Haitam">
 
+    <!-- وسوم Twitter Cards لـ X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tours with Haitam | Luxury Motorcycle Tours in Tangier">
+    <meta name="twitter:description" content="Experience the adventure of a lifetime between the azure Mediterranean Sea and the enchanting Rif Mountains with our luxury fleet.">
+    <meta name="twitter:image" content="{% static 'img/image.jpg' %}">
 
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --primary-red: #e74c3c; 
-            --dark-red: #c0392b;
-            --dark-accent: #1a1a1a;  
+            --primary-red: #ff3e3e; 
+            --primary-red-glow: rgba(255, 62, 62, 0.4);
+            --bg-dark: #0a0a0a;
+            --card-bg: #141414;
+            --text-gray: #a8a8a8;
             --white: #ffffff;
-            --gray: #f8f9fa;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--white);
-            color: var(--dark-accent);
+            background-color: var(--bg-dark);
+            color: var(--white);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .arabic { font-family: 'Cairo', sans-serif; direction: rtl; }
 
+        /* [إضافة مودرن]: مؤشر التمرير العلوي */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red), #ff8e8e);
+            width: 0%;
+            z-index: 2000;
+            transition: width 0.1s ease;
+        }
+
+        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 8%;
-            background: var(--white);
-            position: sticky;
+            background: rgba(10, 10, 10, 0.80);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
         }
 
-        .logo { font-weight: 800; font-size: 1.5rem; color: var(--dark-accent); }
-        .logo span { color: var(--primary-red); }
+        /* [إضافة مودرن]: تصغير الهيدر عند النزول لأسفل */
+        nav.scrolled {
+            padding: 12px 8%;
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
+        .logo { font-weight: 800; font-size: 1.7rem; letter-spacing: 1px; text-transform: uppercase; }
+        .logo span { color: var(--primary-red); text-shadow: 0 0 15px var(--primary-red-glow); }
+
+        .nav-links { display: flex; align-items: center; gap: 35px; }
         .nav-links a {
             text-decoration: none;
-            color: var(--dark-accent);
-            margin-left: 30px;
-            font-weight: 600;
+            color: var(--white);
+            font-weight: 500;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        /* [إضافة مودرن]: تأثير الخط المتحرك أسفل الروابط عند الهوفر */
+        .nav-links a:not(.btn-nav)::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:not(.btn-nav):hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--primary-red); }
+
+        .btn-nav {
+            background: var(--primary-red);
+            padding: 12px 28px !important;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(255, 62, 62, 0.4);
+            font-weight: 600 !important;
+        }
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 62, 62, 0.6);
+            color: var(--white) !important;
+        }
+
+        /* [إضافة مودرن]: زر القائمة للموبايل */
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--white);
+            cursor: pointer;
             transition: 0.3s;
         }
 
-        .nav-links a:hover { color: var(--primary-red); }
-
+        /* Hero Section */
         .hero {
-            height: 85vh;
-            background: linear-gradient(135deg, #fdf2f0 0%, var(--white) 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 0 8%;
-            position: relative;
-            overflow: hidden;
+            padding: 120px 8% 60px;
+            background: radial-gradient(circle at 90% 10%, #3a1515 0%, var(--bg-dark) 60%);
+            gap: 50px;
         }
 
-        .hero-text { flex: 1; z-index: 2; }
-        .hero-text h1 { font-size: 4rem; line-height: 1.2; margin-bottom: 20px; color: var(--dark-accent); }
-        .hero-text span { color: var(--primary-red); }
+        .hero-text { flex: 1; }
+        .hero-text h1 { 
+            font-size: clamp(2.8rem, 6vw, 4.8rem); 
+            line-height: 1.05; 
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        .hero-text h1 span {
+            display: block;
+            background: linear-gradient(90deg, var(--primary-red), #ff8e8e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 20px rgba(255,62,62,0.2));
+        }
+
+        .hero-text p { color: var(--text-gray); font-size: 1.15rem; margin-bottom: 40px; max-width: 540px; }
 
         .hero-image {
-            flex: 1;
-            height: 500px;
-            padding: 5px;
-            border-radius: 25px;
-            background: linear-gradient(45deg, var(--primary-red), white, var(--dark-red));
+            flex: 1.3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px; /* تفعيل البُعد الثالث للإضافات الذكية */
         }
 
-        .hero-image::before{
-            content: "";
-            display: block;
+        .image-container {
+            width: 100%;
+            max-width: 600px;
+            height: 500px;
+            border-radius: 35px;
+            position: relative;
+            z-index: 1;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+        }
+
+        .image-container::after {
+            content: '';
+            position: absolute;
+            inset: -8px; 
+            border: 2px solid var(--primary-red);
+            border-radius: 42px;
+            z-index: -1;
+            opacity: 0.4;
+            box-shadow: 0 0 40px rgba(255, 62, 62, 0.4);
+        }
+
+        .image-container img {
             width: 100%;
             height: 100%;
-            background: url("{% static 'img/img7.png' %}") no-repeat center;
-            background-size: cover;
-            border-radius: 20px;
+            object-fit: cover;
+            border-radius: 35px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.8);
+            display: block;
+            transform: translateZ(20px); /* يخرج الصورة قليلاً للأمام عند الحركة */
         }
 
+        /* Features */
         .features {
-            padding: 100px 8%;
+            padding: 40px 8% 80px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            text-align: center;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 10;
         }
 
         .feat-card {
             padding: 40px;
-            background: var(--gray);
-            border-radius: 20px;
-            transition: 0.3s;
-            border-bottom: 3px solid transparent;
+            background: linear-gradient(145deg, var(--card-bg), #111111);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .feat-card i { 
+            font-size: 2.5rem; 
+            color: var(--primary-red); 
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px var(--primary-red-glow));
+        }
+        .feat-card h3 { margin-bottom: 15px; font-size: 1.35rem; font-weight: 700; }
+        .feat-card p { color: var(--text-gray); font-size: 0.95rem; }
 
         .feat-card:hover { 
-            background: var(--dark-accent); 
-            color: white; 
-            transform: translateY(-10px);
-            border-bottom: 3px solid var(--primary-red);
+            transform: translateY(-12px);
+            background: #1c1c1c;
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 35px rgba(255, 62, 62, 0.1);
         }
 
-        .tours-section { padding: 100px 8%; background: #fffcfc; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        /* Tours Section */
+        .tours-section { padding: 100px 8%; background: linear-gradient(180deg, var(--bg-dark), #0f0f0f); }
+        .section-title { text-align: center; margin-bottom: 70px; }
+        .section-title h2 { font-size: 3.2rem; margin-bottom: 15px; font-weight: 800; }
 
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 35px;
         }
 
         .tour-card {
-            background: var(--white);
-            border-radius: 25px;
+            background: var(--card-bg);
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: 0.4s;
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .tour-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            border-color: rgba(255, 62, 62, 0.3);
+        }
+
+        .card-img { height: 280px; position: relative; overflow: hidden; }
+        
+        /* [إضافة مودرن]: تأثير زووم ذكي للصور عند الهوفر */
+        .card-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tour-card:hover .card-img img { transform: scale(1.08); }
+        
+        .price-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-red);
+            padding: 6px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(255, 62, 62, 0.4);
+            z-index: 2;
+        }
+
+        .card-content { padding: 35px; }
+        .card-content h3 { font-size: 1.55rem; margin-bottom: 12px; font-weight: 700; }
+        .card-content p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 25px; min-height: 50px; }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 2px solid var(--primary-red);
+            color: var(--white);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 16px;
+            font-weight: 600;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-action:hover { 
+            background: var(--primary-red); 
+            box-shadow: 0 10px 25px rgba(255, 62, 62, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer { 
+            padding: 80px 8% 40px; 
+            background: #050505; 
+            border-top: 1px solid var(--glass-border);
+            text-align: center; 
+        }
+
+        .social-links { margin: 30px 0; display: flex; justify-content: center; gap: 25px; }
+        .social-links a {
+            width: 52px;
+            height: 52px;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1.4rem;
+            border: 1px solid var(--glass-border);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-links a:hover { 
+            background: var(--primary-red); 
+            border-color: var(--primary-red);
+            transform: rotate(360deg) scale(1.1); 
+            box-shadow: 0 0 20px var(--primary-red-glow);
+        }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 140px; min-height: auto; padding-bottom: 60px; gap: 40px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-text p { margin: 0 auto 35px; }
+            .image-container { height: 400px; }
+            
+            /* تفعيل زر المنيو على الشاشات الصغيرة */
+            .menu-btn { display: block; }
+            
+            .nav-links { 
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.98);
+                padding: 30px;
+                border-bottom: 1px solid var(--glass-border);
+                gap: 20px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            }
+            .nav-links.active { display: flex; }
+        }
+        /* تصميم قسم الإحصائيات والأسئلة الشائعة المودرن */
+        .stats-faq-section {
+            padding: 80px 8%;
+            background: linear-gradient(180deg, #0f0f0f, #050505);
+        }
+
+        /* العدادات */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+            margin-bottom: 90px;
+        }
+
+        .stat-box {
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            transition: 0.3s;
+        }
+        .stat-box:hover {
+            border-color: var(--primary-red);
+            background: rgba(255, 62, 62, 0.02);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .stat-number::after {
+            content: '+';
+            color: var(--primary-red);
+            font-size: 2rem;
+            margin-left: 2px;
+            vertical-align: top;
+        }
+
+        /* الأسئلة الشائعة */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 22px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .faq-question i {
+            transition: transform 0.4s ease;
+            color: var(--text-gray);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+            padding: 0 30px;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* تنسيقات للتفاعل عند الفتح */
+        .faq-item.active {
+            border-color: rgba(255, 62, 62, 0.4);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .faq-item.active .faq-question {
+            color: var(--primary-red);
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+            color: var(--primary-red);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 22px;
+            transition: max-height 0.4s cubic-bezier(0.99, 0.01, 0.45, 1);
+        }
+        /* قسم آراء العملاء المودرن بالتمرير اللانهائي */
+        .testimonials-section {
+            padding: 100px 0 60px;
+            background: var(--bg-dark);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* حاوية الشريط المانعة لظهور السكرول الخارجي */
+        .marquee-container {
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+        }
+
+        /* مسار الحركة السلسة */
+        .marquee-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* إيقاف الحركة مؤقتاً عندما يضع المستخدم الماوس فوق كارت التقييم */
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        /* كارت التقييم الزجاجي المودرن */
+        .review-card {
+            width: 380px;
+            background: linear-gradient(135deg, rgba(26,26,26,0.6) 0%, rgba(15,15,15,0.8) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.3s ease;
+        }
+        .review-card:hover {
+            border-color: rgba(255, 62, 62, 0.4);
         }
 
-        .tour-card:hover { transform: scale(1.03); box-shadow: 0 20px 40px rgba(231, 76, 60, 0.2); }
+        .stars {
+            color: #f1c40f;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
 
-        .card-img {
-            width: 100%;
-            height: 250px;
+        .review-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .user-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .user-info span {
+            font-size: 0.8rem;
+            color: #777;
+            display: block;
+        }
+
+        /* أنيميشن التمرير اللانهائي النظيف */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 15px)); }
+        }
+
+        /* توافق الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .review-card { width: 300px; padding: 20px; }
+            .review-card p { font-size: 0.88rem; }
+        }
+        /* تصميم معرض الأسطول المودرن */
+        .fleet-showcase {
+            padding: 100px 8% 60px;
+            background: #0d0d0d;
+        }
+
+        /* أزرار الفلترة الدائرية */
+        .fleet-filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            box-shadow: 0 5px 20px rgba(255, 62, 62, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* شبكة الكروت */
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* كارت الدراجة الرياضي المائل */
+        .fleet-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* تأثير إخفاء الكروت المفلترة بأنيميشن احترافي */
+        .fleet-card.hide {
+            transform: scale(0.8) translateY(30px);
+            opacity: 0;
+            display: none;
+        }
+
+        .fleet-img-container {
+            position: relative;
+            height: 240px;
             overflow: hidden;
         }
 
-        .card-img img {
+        .fleet-img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.6s ease;
         }
 
-        .card-content { padding: 30px; }
-        .price { color: var(--primary-red); font-weight: 800; font-size: 1.4rem; display: block; margin-bottom: 10px; }
+        /* طبقة حظر زجاجية سوداء فوق الصورة تظهر عند الهوفر */
+        .fleet-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
 
-        .card-content h3 { color: var(--dark-accent); margin-bottom: 15px; }
-        .card-content p { color: #666; margin-bottom: 15px; }
-
-        .btn-red {
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--primary-red);
-            color: white;
-            text-decoration: none;
+        .bike-spec {
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
             border-radius: 50px;
-            font-weight: 600;
-            transition: 0.3s;
-            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .btn-red:hover { 
-            background: var(--dark-accent); 
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3); 
+        .bike-spec i {
+            color: var(--primary-red);
+            margin-right: 5px;
         }
 
-        footer { padding: 60px 8%; background: var(--dark-accent); color: white; text-align: center; }
+        /* حركات التفاعل الفاخرة */
+        .fleet-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 62, 62, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .fleet-card:hover .fleet-img-container img {
+            transform: scale(1.1);
+        }
 
+        .fleet-card:hover .fleet-overlay {
+            opacity: 1;
+        }
 
+        .fleet-details {
+            padding: 25px;
+            border-top: 1px solid var(--glass-border);
+        }
 
-       .social-links {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
+        .fleet-details h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
 
-    .social-links a {
-        color: white;
-        font-size: 1.5rem;
-        transition: 0.3s;
-        display: inline-block;
-    }
-
-    .social-links a:hover { transform: translateY(-5px); }
-    .fa-facebook:hover { color: #1877F2; }
-    .fa-instagram:hover { color: #E4405F; }
-    .fa-whatsapp:hover { color: #25D366; }
-
-
-
+        .fleet-details p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo"> TOUR WITH<span>DRAK</span></div>
-        <div class="nav-links">
+    <div class="scroll-progress" id="progressBar"></div>
+
+    <nav id="navbar">
+        <div class="logo">TOURS WITH<span> HAITAM</span></div>
+        <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
+        <div class="nav-links" id="navLinks">
             <a href="#">Home</a>
             <a href="#tours">Destinations</a>
-            <a href="{% url 'page2' %}" style="background: var(--primary-red); color: white; padding: 10px 20px; border-radius: 5px;">Reservation</a>
+            <a href="{% url 'page2' %}" class="btn-nav">Reservation</a>
         </div>
     </nav>
 
     <header class="hero">
         <div class="hero-text">
-            <h1 class="reveal">Ride With <br><span>Pure Power</span></h1>
-            <p class="reveal">Explore Tangier's best trails with the most powerful bikes in the city.</p>
-            <a href="#tours" class="btn-red reveal">Start Journey</a>
+            <h1 class="reveal">Northern bridal <br><span>routes await you </span></h1>
+            <p class="reveal">Experience the adventure of a lifetime between the azure Mediterranean Sea and the enchanting Rif Mountains. Our fleet of luxury motorcycles is ready to take you to the very ends of the earth.</p>
+            <div class="reveal">
+                <a href="#tours" class="btn-nav" style="text-decoration: none; color: white;">Explore Fleet</a>
+            </div>
         </div>
-        <div class="hero-image"></div>
+        <div class="hero-image reveal">
+            <div class="image-container tilt-element">
+                <img src="{% static 'img/image.jpg' %}" alt="Tours with Haitam Motorcycle Adventure">
+            </div>
+        </div>
     </header>
 
     <section class="features">
         <div class="feat-card reveal">
+            <i class="fas fa-shield-alt"></i>
             <h3>Safe Gear</h3>
-            <p>Premium helmets and protection for every rider.</p>
+            <p>We provide full professional equipment to ensure your safety on every trail.</p>
         </div>
         <div class="feat-card reveal">
+            <i class="fas fa-map-marked-alt"></i>
             <h3>Expert Guides</h3>
-            <p>Locals who know every corner of the northern coast.</p>
+            <p>Our local team knows the hidden gems of Tangier and the Rif mountains.</p>
         </div>
         <div class="feat-card reveal">
-            <h3>Easy Booking</h3>
-            <p>Your bike is ready in just 5 minutes.</p>
+            <i class="fas fa-bolt"></i>
+            <h3>Quick Start</h3>
+            <p>Seamless booking process. Get your engine running in less than 5 minutes.</p>
         </div>
     </section>
     
     <section id="tours" class="tours-section">
         <div class="section-title reveal">
             <h2 class="arabic">وجهاتنا المميزة</h2>
-            <p>Choose your adrenaline shot</p>
+            <p style="color: var(--primary-red); letter-spacing: 2px;">SELECT YOUR ADVENTURE</p>
         </div>
 
         <div class="container">
             {% for i in x %}
-            <div class="tour-card reveal">
+            <!-- [إضافة مودرن]: تفعيل تأثير الـ 3D Tilt هنا للكروت القادمة من الـ Loop -->
+            <div class="tour-card reveal tilt-element">
                 <div class="card-img">
+                    <div class="price-tag">{{ i.Price }} MAD</div>
                     <img src="{{ i.imag.url }}" alt="{{ i.title }}">
                 </div>
                 <div class="card-content">
-                    <span class="price">{{ i.Price }} MAD</span>
                     <h3 class="arabic">{{ i.title }}</h3>
                     <p class="arabic">{{ i.description }}</p>
-                    <a href="{% url 'page2' %}" class="btn-red">Book Now</a>
+                    <a href="{% url 'page2' %}" class="btn-action">Book This Ride</a>
                 </div>
             </div>
             {% endfor %}
         </div>
     </section>
 
-<footer>
-    <p>&copy; 2026 MOTO RAGE. Built by AE Digital in Tangier.</p>
-    <div class="social-links">
-        <a href="https://instagram.com/yourprofile" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/2126XXXXXXXX" target="_blank"><i class="fab fa-whatsapp"></i></a>
-    </div>
-</footer>
+    <!-- ================= [إضافة مودرن]: قسم الإحصائيات المتحركة والأسئلة الشائعة ================= -->
+    <section class="stats-faq-section">
+        <!-- العدادات الرقمية -->
+        <div class="stats-container reveal">
+            <div class="stat-box">
+                <div class="stat-number" data-target="1500">100 أكثر من</div>
+                <p class="arabic">عميل سعيد</p>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" data-target="45">1</div>
+                <p class="arabic">دراجة ممتازة</p>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" data-target="12">5</div>
+                <p class="arabic">مسار جبلي ساحر</p>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" data-target="100">100%</div>
+                <p class="arabic">٪ تقييمات إيجابية</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= [إضافة مودرن]: قسم آراء العملاء وتجارب المغامرة ================= -->
+    <section class="testimonials-section reveal">
+        <div class="section-title">
+            <h2 class="arabic">What do the adventurers of Tangier say?</h2>
+            <p style="color: var(--primary-red); letter-spacing: 2px;">REAL EXPERIENCES, REAL STORIES</p>
+        </div>
+
+        <!-- شريط التمرير اللانهائي المودرن -->
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <!-- التقييم الأول -->
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="arabic">"أفضل تجربة عشتها في شمال المغرب! التنظيم كان رائعاً، والدراجات في حالة ممتازة، والمسار الجبلي يطل على مناظر خيالية."</p>
+                    <div class="user-info">
+                        <div class="user-avatar">أ ع</div>
+                        <div>
+                            <h4>أمين العلمي</h4>
+                            <span>طنجة، المغرب</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- التقييم الثاني -->
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="arabic">"An incredible adventure! The guide knew every hidden track in the Rif mountains. Safety equipment was top-notch. Highly recommended!"</p>
+                    <div class="user-info">
+                        <div class="user-avatar" style="background: #3e7fff;">DM</div>
+                        <div>
+                            <h4>David Miller</h4>
+                            <span>London, UK</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- التقييم الثالث -->
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <p class="arabic">"قمة في الاحترافية والتعامل. من السهل جداً الحجز والاستلام، قضيت يوماً لا ينسى رفقة أصدقائي في شواطئ أشقار."</p>
+                    <div class="user-info">
+                        <div class="user-avatar" style="background: #e67e22;">ي ب</div>
+                        <div>
+                            <h4>يوسف بنجلون</h4>
+                            <span>تطوان، المغرب</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تكرار التقييمات لضمان سلاسة حركة شريط التمرير اللانهائي (بدون فجوات) -->
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="arabic">"أفضل تجربة عشتها في شمال المغرب! التنظيم كان رائعاً، والدراجات في حالة ممتازة، والمسار الجبلي يطل على مناظر خيالية."</p>
+                    <div class="user-info">
+                        <div class="user-avatar">أ ع</div>
+                        <div>
+                            <h4>أمين العلمي</h4>
+                            <span>طنجة، المغرب</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="arabic">"An incredible adventure! The guide knew every hidden track in the Rif mountains. Safety equipment was top-notch."</p>
+                    <div class="user-info">
+                        <div class="user-avatar" style="background: #3e7fff;">DM</div>
+                        <div>
+                            <h4>David Miller</h4>
+                            <span>London, UK</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= [إضافة مودرن]: معرض أسطول الدراجات التفاعلي ثلاثي الأبعاد ================= -->
+    <section class="fleet-showcase reveal">
+        <div class="section-title">
+            <h2 class="arabic">أسطول القوة والإثارة</h2>
+            <p style="color: var(--primary-red); letter-spacing: 2px;">EXPLORE OUR PREMIUM FLEET</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">TOURS WITH<span> HAITAM</span></div>
+        <p style="color: var(--text-gray); margin-top: 15px;">&copy; 2026 TOURS WITH HAITAM. Crafted by <strong>AE Digital</strong> in Tangier.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/tours_haitam?igsh=OTJsM3h1MWlsc2Nk" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/212699441179" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </footer>
 
     <script>
+        // 1. كود الأنيميشن الأصلي الخاص بك (مع تنعيم الحركة)
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 70) {
                     reveals[i].classList.add("active");
                 }
             }
         }
-        window.addEventListener("scroll", reveal);
-        window.onload = reveal;
+
+        // 2. [إضافة مودرن]: حساب بار القراءة وتصغير الهيدر ذكياً عند السكرول
+        window.addEventListener("scroll", () => {
+            reveal();
+            
+            // بار القراءة
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (height > 0) {
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("progressBar").style.width = scrolled + "%";
+            }
+            
+            // حركة الهيدر
+            const navbar = document.getElementById("navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        // تشغيل الدالة لأول مرة عند تحميل الصفحة
+        reveal();
     </script>
 </body>
 </html>
